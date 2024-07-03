@@ -6,7 +6,8 @@ import numpy as np
 import joblib
 import random
 import datetime
-
+import sys
+sys.path.append('../')
 
 
 stroke_width = 30
@@ -89,7 +90,7 @@ def main():
         #st.dataframe(image_resized)
         if sum(sum(image_resized)) > img_width*0.1:
             #model = joblib.load('xgb.pkl')
-            model = joblib.load('model_svm.pkl')
+            model = joblib.load('app/model_svm.pkl')
             processed_im = image_resized.reshape((1, -1))
             prediction = model.predict(processed_im)
             answer = prediction[0]
