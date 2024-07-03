@@ -10,7 +10,7 @@ import sys
 sys.path.append('../')
 
 
-stroke_width = 20
+stroke_width = 25
 stroke_color = "#000"
 bg_color = "#fff"
 drawing_mode = "freedraw"
