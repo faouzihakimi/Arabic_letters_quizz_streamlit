@@ -7,3 +7,5 @@ scipy==1.14.0
 streamlit==1.36.0
 streamlit-drawable-canvas==0.9.3
 xgboost==2.1.0
+tensorflow==2.18.0
+
