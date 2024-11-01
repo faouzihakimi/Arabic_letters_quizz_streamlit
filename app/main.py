@@ -74,6 +74,15 @@ def initialize_session_state():
     if 'question_number' not in st.session_state:
         st.session_state.question_number = 0
 
+def reset_session_state():
+    #reset the session state when starting a new game
+    st.session_state.current_question = 0
+    st.session_state.player_score = 0
+    st.session_state.seed = random.randint(0, 1000)
+    st.session_state.answer = 0 #binary
+    st.session_state.question_number = 0
+
+
 
 def generate_question():
 
@@ -88,16 +97,18 @@ def page1():
     #Title page to present the game 
     
     st.title("Learn the arabic letters	:writing_hand:")
-    st.write("Use the whole drawing screen for optimal results. :spiral_note_pad:")
+    
     
     if st.session_state.question_number ==0:
-            if st.button("Play ! :pencil2:"):
-                st.session_state.page = 2
-                st.experimental_rerun() #to avoid the double click issue
+        st.write("Use the whole drawing screen for optimal results. :spiral_note_pad:")
+        if st.button("Play ! :pencil2:"):
+            st.session_state.page = 2
+            st.experimental_rerun() #to avoid the double click issue
     else:
         st.subheader("Your score: " + str(st.session_state.player_score) + " / " + str(st.session_state.question_number))
 
         if st.button("Play again !"):
+            reset_session_state()
             st.session_state.page = 2
             st.experimental_rerun() #to avoid the double click issue
 
@@ -179,7 +190,10 @@ def page3():
     else:
         st.subheader("That's not it. :x:") 
         #add an encouragement
-        st.write("Don't worry, you will get it next time ! :punch:")
+        if st.button("It was the right answer", ):
+            st.write("Sorry, my mistake. :sweat_smile:")
+            st.write("For optimal results, use the whole drawing screen. Also try to draw the letter as clear as possible :spiral_note_pad:")
+
 
     
     st.subheader("The letter " + str(df_arabic['Phonetic'][st.session_state.current_question['correct_answer']]) + " is written " + str(df_arabic['Arabic Letter'][st.session_state.current_question['correct_answer']]) )      
@@ -207,6 +221,7 @@ def main():
     # Initialize session state
     if "page" not in st.session_state:
         st.session_state.page = 1
+    
     initialize_session_state()
     if st.session_state.page == 1:
         page1()
