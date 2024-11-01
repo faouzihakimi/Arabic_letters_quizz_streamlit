@@ -1,3 +1,6 @@
+#To create an env named .venv but having a custum appelation :python -m venv --prompt env_calcquizz .venv
+#To run docker-desktop on Ubuntu 24 : sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0, puis systemctl --user restart docker-desktop 
+
 joblib==1.4.2
 numpy==2.0.0
 opencv-python==4.10.0.84

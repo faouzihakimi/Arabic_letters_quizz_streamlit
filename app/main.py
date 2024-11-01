@@ -1,3 +1,4 @@
+# import necessary libraries
 import pandas as pd
 import cv2
 import streamlit as st
@@ -11,6 +12,7 @@ import sys
 sys.path.append('../')
 
 
+# Define global variables
 stroke_width = 20
 stroke_color = "#000"
 bg_color = "#fff"
@@ -48,24 +50,19 @@ arabic_phonetic = {
     'ي': 'yā'
 }
 
-
-
-
-
-
 # Create a DataFrame from the dictionary
 df_arabic = pd.DataFrame(list(arabic_phonetic.items()), columns=['Arabic Letter', 'Phonetic'])
 
+
+
 def rgb2gray(rgb):
+    #convert rgb to grayscale
     return np.dot(rgb[...,:3], [0.2989, 0.5870, 0.1140])
 
-# Define the getSum function
-# def getSum(n):
-#     while n > 9:
-#         n = sum(int(digit) for digit in str(n))
-#     return n
-
 def initialize_session_state():
+
+    # Initialize session state for the streamlit app
+
     if 'current_question' not in st.session_state:
         st.session_state.current_question = 0
     if 'player_score' not in st.session_state:
@@ -78,17 +75,8 @@ def initialize_session_state():
         st.session_state.question_number = 0
 
 
-# Function to generate questions
-# def generate_questions_archive(number_list):
-#     questions = []
-#     for number in number_list:
-#         question = "Quelle est la somme des chiffres de " + str(number) + "? "
-#         correct_answer = getSum(number)
-#         questions.append({'question': question, 'correct_answer': correct_answer})
-#     return questions
-
 def generate_question():
-    
+
     random_number = random.randint(0, len(df_arabic['Phonetic']) - 1)
     question = "How do you write the arabic letter '" + df_arabic['Phonetic'][random_number] + "' ? :writing_hand:"
     
@@ -96,26 +84,11 @@ def generate_question():
     return {'question': question, 'correct_answer': random_number}
 
 
-# def update_score(sorted_answers,probas, correct_answer, question_number):
-
-
-#     if probas[0] <2/9:
-#         st.write("Réponse non reconnue.")
-
-
-#     if int(sorted_answers[0]) == correct_answer:
-#         st.subheader("Bonne réponse ! :white_check_mark:" ) 
-#         st.session_state.player_score += 1
-
-#     elif (int(sorted_answers[1]) == correct_answer) & (probas[1] >= 0.5*probas[0]):
-#         st.subheader("Bonne réponse ! :white_check_mark:" ) 
-#     else:
-#         st.subheader("Mauvaise réponse. La bonne réponse pour "  + str(question_number) + " est " +    str(correct_answer) +'.')
-
-# Generate questions based on a random list of numbers
-
 def page1():
+    #Title page to present the game 
+    
     st.title("Learn the arabic letters	:writing_hand:")
+    st.write("Use the whole drawing screen for optimal results. :spiral_note_pad:")
     
     if st.session_state.question_number ==0:
             if st.button("Play ! :pencil2:"):
@@ -130,18 +103,13 @@ def page1():
 
         
 
-
-
-
-
 def page2():
-
+    #Game page
     
     random.seed(st.session_state.seed)
     st.session_state.current_question = generate_question()
     st.subheader(st.session_state.current_question['question'])
-    
-    #st.write(f"Ton score: {st.session_state.player_score} / {len(quiz_questions)}")      
+       
 
     col1, col2 = st.columns(2, gap="small")
     #col1, col2 = st.columns(2
@@ -180,7 +148,7 @@ def page2():
                 max_proba = np.max(probas)
                 answer = np.argmax(probas, axis=1)[0]
                 
-                if max_proba <1/2 : #corresponding to 3 times the probability of a random answer
+                if max_proba <2/3 : 
                     st.write("Unrecognized answer. Please try again.")
                 else:
                     #st.write("Reponse: " + str(df_arabic['Phonetic'][answer]))
@@ -202,17 +170,19 @@ def page2():
         st.dataframe(df_arabic)                
 
 def page3():
+    #Result page
 
-    st.session_state.seed = st.session_state.seed + 1
-    if  st.session_state.answer_check:     
-        st.subheader("Good answer !  	:+1: " )
+    st.session_state.seed = st.session_state.seed + 1  
+    if  st.session_state.answer_check: 
+        st.subheader("Well done !  	:+1: " )
+        
     else:
-        st.subheader("Wrong answer. :x:")
-        #st.subheader("La lettre écrite est un " + str(df_arabic['Phonetic'][st.session_state.answer]) + " et non pas " + str(st.session_state.current_question['correct_answer']))
-        #st.write("Reponse donnée: " + str(df_arabic['Phonetic'][st.session_state.answer]))
-        #st.write("Bonne réponse: " + str(st.session_state.current_question['correct_answer']))
+        st.subheader("That's not it. :x:") 
+        #add an encouragement
+        st.write("Don't worry, you will get it next time ! :punch:")
+
     
-    st.subheader("The letter " + str(df_arabic['Phonetic'][st.session_state.current_question['correct_answer']]) + " is written as " + str(df_arabic['Arabic Letter'][st.session_state.current_question['correct_answer']]) )      
+    st.subheader("The letter " + str(df_arabic['Phonetic'][st.session_state.current_question['correct_answer']]) + " is written " + str(df_arabic['Arabic Letter'][st.session_state.current_question['correct_answer']]) )      
     
     st.write("Your score: " + str(st.session_state.player_score) + " / " + str(st.session_state.question_number))
     
