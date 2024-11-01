@@ -12,6 +12,7 @@ This repository contains a Streamlit app designed to help users learn and practi
 - `Dockerfile`: Instructions for building a Docker container for the app.
 - `requirements.txt`: Python dependencies required for the project.
 - `packages.txt`: System-level packages required for the project.
+- `.gitignore`: To prevent uploading the python env and data.
 
 ## Features
 
@@ -19,7 +20,11 @@ This repository contains a Streamlit app designed to help users learn and practi
 - Real-time character recognition
 - Score tracking
 
-## Installation
+## Try the App Online
+
+You can try the app directly by visiting our published Streamlit app at [Arabic letter quizz](https://arabiclettersquizzapp-lga9vypkfhbvyagvngbh69.streamlit.app/). No installation is required!
+
+## Local installation
 
 ### Local Setup
 
