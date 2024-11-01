@@ -192,7 +192,7 @@ def page3():
         #add an encouragement
         if st.button("It was the right answer", ):
             st.write("Sorry, my mistake. :sweat_smile:")
-            st.write("For optimal results, use the whole drawing screen. Also try to draw the letter as clear as possible :spiral_note_pad:")
+            st.write("For optimal results, use the whole drawing screen. Also try to draw the letter as clear as possible.")
 
 
     
