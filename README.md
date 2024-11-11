@@ -12,6 +12,7 @@ This repository contains a Streamlit app designed to help users learn and practi
 - `Dockerfile`: Instructions for building a Docker container for the app.
 - `requirements.txt`: Python dependencies required for the project.
 - `packages.txt`: System-level packages required for the project.
+- `LICENCE.md`: File containing the app Licence.
 - `.gitignore`: To prevent uploading the python env and data.
 
 ## Features
@@ -79,10 +80,11 @@ The `model_training.ipynb` notebook contains the process for training the charac
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/faouzihakimi/Arabic_letters_quizz_streamlit/blob/main/LICENCE.md) file for details.
 
 ## Acknowledgements
 
 - [Streamlit](https://streamlit.io/) for the app framework
 - [TensorFlow](https://www.tensorflow.org/) for machine learning capabilities
 - [OpenCV](https://opencv.org/) for image processing
+- [Here](https://www.kaggle.com/datasets/mloey1/ahcd1) for the dataset
