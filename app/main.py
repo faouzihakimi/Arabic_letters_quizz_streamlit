@@ -153,7 +153,7 @@ def page2():
         if st.button("Check :white_check_mark:"):
             if sum(sum(image_resized)) > img_width*0.1:
                 #st.write(str(sum(sum(image_resized))))
-                model = tf.keras.models.load_model('app/cnn_model.h5')
+                model = tf.keras.models.load_model('app/cnn_model.keras')
                 image_processed = image_resized.reshape(1, img_width, img_width, 1)
                 probas = model.predict(image_processed)
                 max_proba = np.max(probas)
